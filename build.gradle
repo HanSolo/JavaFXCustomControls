@@ -103,9 +103,6 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.kordamp.ikonli:ikonli-core:12.1.0'
-    implementation 'org.kordamp.ikonli:ikonli-javafx:12.1.0'
-    implementation 'org.kordamp.ikonli:ikonli-antdesignicons-pack:12.1.0'
 }
 
 java {
