@@ -1,0 +1,151 @@
+plugins {
+    id 'idea'
+    id 'java-library'
+    id 'application'
+    id 'org.kordamp.gradle.java-project'
+    id 'org.openjfx.javafxplugin'
+    id 'biz.aQute.bnd.builder'
+}
+
+if (!project.hasProperty('bintrayUsername'))  ext.bintrayUsername  = '**undefined**'
+if (!project.hasProperty('bintrayApiKey'))    ext.bintrayApiKey    = '**undefined**'
+if (!project.hasProperty('sonatypeUsername')) ext.sonatypeUsername = '**undefined**'
+if (!project.hasProperty('sonatypePassword')) ext.sonatypePassword = '**undefined**'
+
+config {
+    release = (rootProject.findProperty('release') ?: false).toBoolean()
+
+    info {
+        name          = 'JavaFXCustomControls'
+        description   = 'JavaFXCustomControls is a project that shows different approaches to create custom controls in JavaFX'
+        vendor        = 'Hansolo'
+        inceptionYear = '2020'
+        tags          = ['javafx', 'java']
+
+        links {
+            website      = 'https://github.com/HanSolo/JavaFXCustomControls/wiki'
+            issueTracker = 'https://github.com/HanSolo/JavaFXCustomControls/issues'
+            scm          = 'https://github.com/HanSolo/JavaFXCustomControls.git'
+        }
+
+        people {
+            person {
+                id    = 'HanSolo'
+                name  = 'Gerrit Grunwald'
+                url   = 'https://harmoniccode.blogspot.com/'
+                roles = ['developer']
+            }
+        }
+
+        credentials {
+            sonatype {
+                username = project.sonatypeUsername
+                password = project.sonatypePassword
+            }
+        }
+
+        repositories {
+            repository {
+                name = 'localRelease'
+                url  = "${project.rootProject.buildDir}/repos/local/release"
+            }
+            repository {
+                name = 'localSnapshot'
+                url  = "${project.rootProject.buildDir}/repos/local/snapshot"
+            }
+        }
+    }
+
+    licensing {
+        licenses {
+            license {
+                id = 'Apache-2.0'
+            }
+        }
+    }
+
+    bintray {
+        enabled      = true
+        userOrg      = 'hansolo'
+        repo         = 'JavaFXCustomControls'
+        name         = rootProject.name
+        publish      = config.release
+        credentials {
+            username = project.bintrayUsername
+            password = project.bintrayApiKey
+        }
+    }
+
+    publishing {
+        signing             = false
+        releasesRepository  = 'localRelease'
+        snapshotsRepository = 'localSnapshot'
+    }
+
+    docs {
+        javadoc {
+            autoLinks {
+                enabled = false
+            }
+        }
+    }
+}
+
+normalization {
+    runtimeClasspath {
+        ignore('/META-INF/MANIFEST.MF')
+    }
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.kordamp.ikonli:ikonli-core:12.1.0'
+    implementation 'org.kordamp.ikonli:ikonli-javafx:12.1.0'
+    implementation 'org.kordamp.ikonli:ikonli-antdesignicons-pack:12.1.0'
+}
+
+java {
+    modularity.inferModulePath.set(true)
+}
+
+javafx {
+    version = javafxVersion
+    modules = [ 'javafx.base', 'javafx.graphics', 'javafx.controls' ]
+}
+
+jar {
+    manifest {
+        attributes(
+                'Bundle-Name': project.name,
+                'Bundle-License': 'https://www.apache.org/licenses/LICENSE-2.0;description=Apache License Version 2.0;link=https://spdx.org/licenses/Apache-2.0.html',
+                'Bundle-Description': config.info.description,
+                'Bundle-SymbolicName': 'eu.hansolo.fx.JavaFXCustomControls',
+                'Export-Package': 'eu.hansolo.fx.JavaFXCustomControls,eu.hansolo.fx.JavaFXCustomControls.restyled,eu.hansolo.fx.JavaFXCustomControls.tools'
+        )
+    }
+}
+
+publishing {
+    publications {
+        main(MavenPublication) {
+            pom.withXml {
+                asNode().dependencies.'*'.findAll {
+                    it.groupId.text() == 'org.openjfx'
+                }.each {
+                    it.remove(it.classifier)
+                }
+            }
+        }
+    }
+}
+
+// Fix problems with loading resources
+sourceSets {
+    main {
+        output.setResourcesDir(java.outputDir)
+    }
+}

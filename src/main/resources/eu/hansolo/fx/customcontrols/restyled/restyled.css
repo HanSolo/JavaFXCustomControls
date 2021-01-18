@@ -1,0 +1,185 @@
+/*
+ * Copyright (c) 2021 by Gerrit Grunwald
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.check-box {
+    -material-design-color               : #3f51b5;
+    -material-design-color-transparent-12: #3f51b51f;
+    -material-design-color-transparent-24: #3f51b53e;
+    -material-design-color-transparent-40: #3f51b566;
+
+    -fx-font-family  : "Arial"; /* Roboto Regular */
+    -fx-font-size    : 13px;
+    -fx-label-padding: 0em 0em 0em 1.1em;
+    -fx-text-fill    : -fx-text-background-color;
+}
+.check-box > .box {
+    -fx-background-color  : transparent;
+    -fx-background-insets : 0;
+    -fx-border-color      : #0000008a;
+    -fx-border-width      : 2px;
+    -fx-border-radius     : 2px;
+    -fx-padding           : 0.083333em; /* 1px */
+    -fx-text-fill         : -fx-text-base-color;
+    -fx-alignment         : CENTER;
+    -fx-content-display   : LEFT;
+}
+.check-box:hover > .box {
+    -fx-background-color  : #61616110, transparent;
+    -fx-background-insets : -14, 0;
+    -fx-background-radius : 1024;
+    -fx-cursor            : hand;
+}
+.check-box:focused > .box {
+    -fx-background-color  : #6161613e, transparent;
+    -fx-background-insets : -14, 0;
+    -fx-background-radius : 1024;
+}
+.check-box:pressed > .box {
+    -fx-background-color  : -material-design-color-transparent-12, transparent;
+    -fx-background-insets : -14, 0;
+    -fx-background-radius : 1024;
+}
+.check-box:selected > .box {
+    -fx-background-color  : -material-design-color;
+    -fx-background-radius : 2px;
+    -fx-background-insets : 0;
+    -fx-border-color      : transparent;
+}
+.check-box:selected:hover > .box {
+    -fx-background-color  : -material-design-color-transparent-12, -material-design-color;
+    -fx-background-insets : -14, 0;
+    -fx-background-radius : 1024, 2px;
+    -fx-border-color      : transparent;
+    -fx-cursor            : hand;
+}
+.check-box:selected:focused > .box {
+    -fx-background-color  : -material-design-color-transparent-24, -material-design-color;
+    -fx-background-insets : -14, 0;
+    -fx-background-radius : 1024, 2px;
+    -fx-border-color      : transparent;
+}
+.check-box:disabled {
+    -fx-opacity: 0.46;
+}
+.check-box > .box > .mark {
+    -fx-background-color: null;
+    -fx-padding         : 0.45em;
+    -fx-scale-x         : 1.1;
+    -fx-scale-y         : 0.8;
+    -fx-shape           : "M9.998,13.946L22.473,1.457L26.035,5.016L10.012,21.055L0.618,11.688L4.178,8.127L9.998,13.946Z";
+}
+.check-box:indeterminate:hover > .box {
+    cursor:hand;
+}
+.check-box:indeterminate > .box {
+    -fx-background-color  : -material-design-color-transparent-40;
+    -fx-background-radius : 2px;
+    -fx-background-insets : 0;
+    -fx-border-color      : transparent;
+}
+.check-box:indeterminate  > .box > .mark {
+    -fx-background-color: rgba(255, 255, 255, 0.87);
+    -fx-shape           : "M0,0H10V2H0Z";
+    /*
+    -fx-scale-shape: false;
+    -fx-padding    : 0.666667em;
+    */
+}
+.check-box:selected > .box > .mark {
+    -fx-background-color : rgba(255, 255, 255, 0.87);
+    -fx-background-insets: 0;
+}
+
+.switch {
+    -material-design-color               : #3f51b5;
+    -material-design-color-transparent-12: #3f51b51f;
+    -material-design-color-transparent-24: #3f51b53e;
+    -material-design-color-transparent-40: #3f51b566;
+
+    -fx-font-family  : "Arial";
+    -fx-font-size    : 13.0px;
+    -fx-label-padding: 0em 0em 0em 1.1em;
+    -fx-text-fill    : -fx-text-background-color;
+}
+.switch > *.box {
+    -fx-background-color : #00000066;
+    -fx-pref-height      : 20;
+    -fx-pref-width       : 40;
+    -fx-background-radius: 1024px;
+    -fx-background-insets: 2.5;
+    -fx-padding          : 0;
+}
+.switch:selected > *.box {
+    -fx-background-color: -material-design-color-transparent-40;
+}
+.switch:disabled > *.box {
+    -fx-background-color: #0000001f;
+}
+.switch > *.box > *.mark {
+    -fx-background-color : fafafa;
+    -fx-padding          : 0;
+    -fx-background-insets: 0 10 0 10;
+    -fx-background-radius: 1024px;
+    -fx-translate-x      : -8px;
+    -fx-effect           : dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4.0, 0.5, 0.0, 1);
+}
+.switch:hover > *.box > *.mark {
+    -fx-background-color : #61616110, white;
+    -fx-background-insets: -14 -4 -14 -4, 0 10 0 10;
+    -fx-background-radius: 1024px, 1024px;
+    -fx-effect           : dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4.0, 0.2, 0.0, 1);
+}
+.switch:selected:hover > *.box > *.mark {
+    -fx-background-color : -material-design-color-transparent-12, -material-design-color;
+    -fx-background-insets: -14 -4 -14 -4, 0 10 0 10;
+    -fx-background-radius: 1024px, 1024px;
+    -fx-effect           : dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4.0, 0.2, 0.0, 1);
+}
+.switch:selected > *.box > *.mark {
+    -fx-background-color : -material-design-color;
+    -fx-background-insets: 0 10 0 10;
+    -fx-background-radius: 1024px;
+    -fx-translate-x      : 8px;
+}
+.switch:focused > *.box > *.mark {
+    -fx-background-color : #6161613e, white;
+    -fx-background-insets: -14 -4 -14 -4, 0 10 0 10;
+    -fx-background-radius: 1024px, 1024px;
+    -fx-effect           : dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4.0, 0.2, 0.0, 1);
+}
+.switch:selected:focused > *.box > *.mark {
+    -fx-background-color : -material-design-color-transparent-24, -material-design-color;
+    -fx-background-insets: -14 -4 -14 -4, 0 10 0 10;
+    -fx-background-radius: 1024px, 1024px;
+    -fx-effect           : dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4.0, 0.2, 0.0, 1);
+}
+.switch:indeterminate > *.text {
+    -fx-fill: -required-text-color;
+}
+.switch:indeterminate > *.box > *.mark {
+    -fx-background-color : transparent;
+    -fx-border-color     : -material-design-color;
+    -fx-border-radius    : 1024px;
+    -fx-border-insets    : 0 10 0 10;
+    -fx-border-width     : 3;
+    -fx-translate-x      : 0;
+}
+.switch:disabled > *.box > *.mark {
+    -fx-background-color: bdbdbd;
+}
+.switch:disabled {
+    -fx-opacity: 1;
+}
