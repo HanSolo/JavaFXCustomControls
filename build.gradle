@@ -120,8 +120,8 @@ jar {
                 'Bundle-Name': project.name,
                 'Bundle-License': 'https://www.apache.org/licenses/LICENSE-2.0;description=Apache License Version 2.0;link=https://spdx.org/licenses/Apache-2.0.html',
                 'Bundle-Description': config.info.description,
-                'Bundle-SymbolicName': 'eu.hansolo.fx.JavaFXCustomControls',
-                'Export-Package': 'eu.hansolo.fx.JavaFXCustomControls,eu.hansolo.fx.JavaFXCustomControls.restyled,eu.hansolo.fx.JavaFXCustomControls.tools'
+                'Bundle-SymbolicName': 'eu.hansolo.fx.customcontrols',
+                'Export-Package': 'eu.hansolo.fx.customcontrols,eu.hansolo.fx.customcontrols.restyled,eu.hansolo.fx.customcontrols.combined,eu.hansolo.fx.customcontrols.tools'
         )
     }
 }

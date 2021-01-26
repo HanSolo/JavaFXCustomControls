@@ -14,35 +14,33 @@
  * limitations under the License.
  */
 
-package eu.hansolo.fx.customcontrols.restyled;
+package eu.hansolo.fx.customcontrols.combined;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
-public class DemoRestyled extends Application {
-    private CheckBox control0;
-    private Switch   control1;
+public class DemoCombined extends Application {
+    private CombinedControl control;
+    private Button          button;
 
     @Override public void init() {
-        control0 = new CheckBox("Material Design");
-        control1 = new Switch("Material Design");
+        control = new CombinedControl();
+        button  = new Button("Focus");
     }
 
     @Override public void start(Stage stage) {
-        VBox pane = new VBox(24, control0, control1);
+        VBox pane = new VBox(24, control, button);
         pane.setPadding(new Insets(20));
 
         Scene scene = new Scene(pane);
-        scene.getStylesheets().add(DemoRestyled.class.getResource("restyled.css").toExternalForm());
 
-        stage.setTitle("Restyled Control");
+        stage.setTitle("Combined Control");
         stage.setScene(scene);
         stage.show();
     }

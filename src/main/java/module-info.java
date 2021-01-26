@@ -6,8 +6,9 @@ module eu.hansolo.fx.customcontrols {
     requires transitive javafx.base;
     requires transitive javafx.graphics;
     requires transitive javafx.controls;
-    
+
     // Exports
     exports eu.hansolo.fx.customcontrols.restyled;
+    exports eu.hansolo.fx.customcontrols.combined;
     exports eu.hansolo.fx.customcontrols.tools;
 }
