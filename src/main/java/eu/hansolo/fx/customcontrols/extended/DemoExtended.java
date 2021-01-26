@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package eu.hansolo.fx.customcontrols.combined;
+package eu.hansolo.fx.customcontrols.extended;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -24,14 +24,16 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
-public class DemoCombined extends Application {
-    private CombinedControl control;
+public class DemoExtended extends Application {
+    private ExtendedControl control;
     private Button          button;
 
 
     @Override public void init() {
-        control = new CombinedControl();
-        button  = new Button("Focus");
+        control = new ExtendedControl();
+        control.setPromptText("Name");
+
+        button = new Button("Focus");
     }
 
     @Override public void start(Stage stage) {
@@ -40,7 +42,7 @@ public class DemoCombined extends Application {
 
         Scene scene = new Scene(pane);
 
-        stage.setTitle("Combined Control");
+        stage.setTitle("Extended Control");
         stage.setScene(scene);
         stage.show();
 

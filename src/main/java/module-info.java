@@ -10,5 +10,6 @@ module eu.hansolo.fx.customcontrols {
     // Exports
     exports eu.hansolo.fx.customcontrols.restyled;
     exports eu.hansolo.fx.customcontrols.combined;
+    exports eu.hansolo.fx.customcontrols.extended;
     exports eu.hansolo.fx.customcontrols.tools;
 }

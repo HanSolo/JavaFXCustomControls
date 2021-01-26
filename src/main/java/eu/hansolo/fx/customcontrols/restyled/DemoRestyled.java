@@ -19,9 +19,7 @@ package eu.hansolo.fx.customcontrols.restyled;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -29,6 +27,7 @@ import javafx.stage.Stage;
 public class DemoRestyled extends Application {
     private CheckBox control0;
     private Switch   control1;
+
 
     @Override public void init() {
         control0 = new CheckBox("Material Design");

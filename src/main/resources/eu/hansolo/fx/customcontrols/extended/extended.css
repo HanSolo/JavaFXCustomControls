@@ -1,0 +1,81 @@
+/*
+ * Copyright (c) 2021 by Gerrit Grunwald
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.material-field {
+    -material-design-color            : #3f51b5;
+    -material-design-color-transparent: #3f51b51f;
+    -prompt-text-color                : #757575;
+}
+.material-field > .prompt-text {
+    -fx-fill: -prompt-text-color;
+}
+.material-field:readonly {
+    -fx-prompt-text-fill: transparent;
+}
+.material-field:disabled {
+    -fx-prompt-text-fill: transparent;
+}
+
+.text-input {
+    -fx-font-family        : "Arial";
+    -fx-font-size          : 13px;
+    -fx-text-fill          : -fx-text-inner-color;
+    -fx-highlight-fill     : derive(-fx-control-inner-background,-20%);
+    -fx-highlight-text-fill: -fx-text-inner-color;
+    -fx-prompt-text-fill   : transparent;
+    -fx-background-color   : transparent;
+    -fx-background-insets  : 0;
+    -fx-background-radius  : 0;
+    -fx-border-color       : transparent transparent #616161 transparent;
+    -fx-border-width       : 1;
+    -fx-border-insets      : 0 0 1 0;
+    -fx-border-style       : hidden hidden solid hidden;
+    -fx-cursor             : text;
+    -fx-padding            : 0.166667em 0em 0.333333em 0em;
+}
+.text-input:focused {
+    -fx-highlight-fill     : -material-design-color-transparent;
+    -fx-highlight-text-fill: -material-design-color;
+    -fx-text-fill          : -fx-text-inner-color;
+    -fx-background-color   : transparent;
+    -fx-background-insets  : 0;
+    -fx-background-radius  : 0;
+    -fx-border-color       : transparent transparent -material-design-color transparent;
+    -fx-border-width       : 2;
+    -fx-border-insets      : 0 0 2 -1;
+    -fx-border-style       : hidden hidden solid hidden;
+    -fx-prompt-text-fill   : transparent;
+    -fx-padding            : 2 0 4 0;
+}
+.text-input:readonly {
+    -fx-background-color: transparent;
+    -fx-text-fill       : derive(-fx-text-base-color, 35%);
+    -fx-border-style    : segments(2, 3)  line-cap butt;
+    -fx-border-color    : transparent transparent #616161 transparent;
+}
+.text-input:focused:readonly {
+    -fx-text-fill   : derive(-fx-text-base-color, 35%);
+    -fx-border-style: segments(2, 3)  line-cap butt;
+    -fx-border-color: transparent transparent -material-design-color transparent;
+}
+.text-input:disabled {
+    -fx-opacity     : 0.46;
+    -fx-border-style: segments(2, 3)  line-cap butt;
+    -fx-border-color: transparent transparent black transparent;
+}
+.text-input:focused > .material-field {
+    -prompt-text-color: -material-design-color;
+}
