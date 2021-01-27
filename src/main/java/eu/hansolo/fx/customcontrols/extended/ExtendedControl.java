@@ -152,6 +152,7 @@ public class ExtendedControl extends TextField {
                 timeline.getKeyFrames().setAll(kf0, kf1);
                 timeline.play();
             }
+            promptText.setFill(isFocused ? getMaterialDesignColor() : DEFAULT_PROMPT_TEXT_COLOR);
         } else {
             if (Double.compare(promptTextBox.getTranslateY(), 0) != 0) {
                 kvTextY0          = new KeyValue(promptTextBox.translateYProperty(), promptTextBox.getTranslateY());

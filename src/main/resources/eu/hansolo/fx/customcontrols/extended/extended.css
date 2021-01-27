@@ -19,9 +19,6 @@
     -material-design-color-transparent: #3f51b51f;
     -prompt-text-color                : #757575;
 }
-.material-field > .prompt-text {
-    -fx-fill: -prompt-text-color;
-}
 .material-field:readonly {
     -fx-prompt-text-fill: transparent;
 }
@@ -51,12 +48,9 @@
     -fx-highlight-text-fill: -material-design-color;
     -fx-text-fill          : -fx-text-inner-color;
     -fx-background-color   : transparent;
-    -fx-background-insets  : 0;
-    -fx-background-radius  : 0;
     -fx-border-color       : transparent transparent -material-design-color transparent;
     -fx-border-width       : 2;
     -fx-border-insets      : 0 0 2 -1;
-    -fx-border-style       : hidden hidden solid hidden;
     -fx-prompt-text-fill   : transparent;
     -fx-padding            : 2 0 4 0;
 }
@@ -75,7 +69,4 @@
     -fx-opacity     : 0.46;
     -fx-border-style: segments(2, 3)  line-cap butt;
     -fx-border-color: transparent transparent black transparent;
-}
-.text-input:focused > .material-field {
-    -prompt-text-color: -material-design-color;
 }
