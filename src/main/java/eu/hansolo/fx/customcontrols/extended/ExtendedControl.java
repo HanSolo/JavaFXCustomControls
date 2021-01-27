@@ -51,7 +51,7 @@ public class ExtendedControl extends TextField {
     private        final StyleableProperty<Color>                  materialDesignColor;
     private        final StyleableProperty<Color>                  promptTextColor;
     private              Text                                      promptText;
-    private              HBox                                      text;
+    private              HBox                                      promptTextBox;
     private              DoubleProperty                            fontSize;
     private              Timeline                                  timeline;
 
@@ -60,8 +60,8 @@ public class ExtendedControl extends TextField {
     public ExtendedControl() {
         this("");
     }
-    public ExtendedControl(final String TEXT) {
-        super(TEXT);
+    public ExtendedControl(final String promptTextBox) {
+        super(promptTextBox);
 
         materialDesignColor = new SimpleStyleableObjectProperty<>(MATERIAL_DESIGN_COLOR, this, "materialDesignColor");
         promptTextColor     = new SimpleStyleableObjectProperty<>(PROMPT_TEXT_COLOR, this, "promptTextColor");
@@ -78,23 +78,23 @@ public class ExtendedControl extends TextField {
     private void initGraphics() {
         getStyleClass().addAll("material-field");
 
-        final String FONT_FAMILY = getFont().getFamily();
-        final int    LENGTH      = getText().length();
+        final String fontFamily = getFont().getFamily();
+        final int    length      = getText().length();
 
         promptText = new Text(getPromptText());
         promptText.getStyleClass().add("prompt-text");
 
-        text = new HBox(promptText);
-        text.getStyleClass().add("material-field");
+        promptTextBox = new HBox(promptText);
+        promptTextBox.getStyleClass().add("material-field");
 
-        if (!isEditable() || isDisabled() || LENGTH > 0) {
-            promptText.setFont(Font.font(FONT_FAMILY, SMALL_FONT_SIZE));
-            text.setTranslateY(-STD_FONT_SIZE - TOP_OFFSET_Y);
+        if (!isEditable() || isDisabled() || length > 0) {
+            promptText.setFont(Font.font(fontFamily, SMALL_FONT_SIZE));
+            promptTextBox.setTranslateY(-STD_FONT_SIZE - TOP_OFFSET_Y);
         } else {
-            promptText.setFont(Font.font(FONT_FAMILY, STD_FONT_SIZE));
+            promptText.setFont(Font.font(fontFamily, STD_FONT_SIZE));
         }
 
-        getChildren().addAll(text);
+        getChildren().addAll(promptTextBox);
     }
 
     private void registerListeners() {
@@ -104,9 +104,9 @@ public class ExtendedControl extends TextField {
         promptTextColorProperty().addListener(o -> promptText.setFill(getPromptTextColor()));
         fontSize.addListener(o -> promptText.setFont(Font.font(fontSize.get())));
         timeline.setOnFinished(evt -> {
-            final int LENGTH = null == getText() ? 0 : getText().length();
-            if (LENGTH > 0 && text.getTranslateY() >= 0) {
-                text.setTranslateY(-STD_FONT_SIZE - TOP_OFFSET_Y);
+            final int length = null == getText() ? 0 : getText().length();
+            if (length > 0 && promptTextBox.getTranslateY() >= 0) {
+                promptTextBox.setTranslateY(-STD_FONT_SIZE - TOP_OFFSET_Y);
                 fontSize.set(SMALL_FONT_SIZE);
             }
         });
@@ -125,7 +125,7 @@ public class ExtendedControl extends TextField {
 
     // ******************** Misc **********************************************
     private void handleTextAndFocus(final boolean isFocused) {
-        final int LENGTH = null == getText() ? 0 : getText().length();
+        final int length = null == getText() ? 0 : getText().length();
 
         KeyFrame kf0;
         KeyFrame kf1;
@@ -137,14 +137,14 @@ public class ExtendedControl extends TextField {
         KeyValue kvPromptTextFill0;
         KeyValue kvPromptTextFill1;
 
-        if (isFocused | LENGTH > 0 || isDisabled() || !isEditable()) {
-            if (Double.compare(text.getTranslateY(), -STD_FONT_SIZE - TOP_OFFSET_Y) != 0) {
-                kvTextY0            = new KeyValue(text.translateYProperty(), 0);
-                kvTextY1            = new KeyValue(text.translateYProperty(), -STD_FONT_SIZE - TOP_OFFSET_Y);
-                kvTextFontSize0     = new KeyValue(fontSize, STD_FONT_SIZE);
-                kvTextFontSize1     = new KeyValue(fontSize, SMALL_FONT_SIZE);
-                kvPromptTextFill0   = new KeyValue(promptTextColorProperty(), DEFAULT_PROMPT_TEXT_COLOR);
-                kvPromptTextFill1   = new KeyValue(promptTextColorProperty(), isFocused ? getMaterialDesignColor() : DEFAULT_PROMPT_TEXT_COLOR);
+        if (isFocused | length > 0 || isDisabled() || !isEditable()) {
+            if (Double.compare(promptTextBox.getTranslateY(), -STD_FONT_SIZE - TOP_OFFSET_Y) != 0) {
+                kvTextY0          = new KeyValue(promptTextBox.translateYProperty(), 0);
+                kvTextY1          = new KeyValue(promptTextBox.translateYProperty(), -STD_FONT_SIZE - TOP_OFFSET_Y);
+                kvTextFontSize0   = new KeyValue(fontSize, STD_FONT_SIZE);
+                kvTextFontSize1   = new KeyValue(fontSize, SMALL_FONT_SIZE);
+                kvPromptTextFill0 = new KeyValue(promptTextColorProperty(), DEFAULT_PROMPT_TEXT_COLOR);
+                kvPromptTextFill1 = new KeyValue(promptTextColorProperty(), isFocused ? getMaterialDesignColor() : DEFAULT_PROMPT_TEXT_COLOR);
 
                 kf0 = new KeyFrame(Duration.ZERO, kvTextY0, kvTextFontSize0, kvPromptTextFill0);
                 kf1 = new KeyFrame(Duration.millis(ANIMATION_DURATION), kvTextY1, kvTextFontSize1, kvPromptTextFill1);
@@ -153,13 +153,13 @@ public class ExtendedControl extends TextField {
                 timeline.play();
             }
         } else {
-            if (Double.compare(text.getTranslateY(), 0) != 0) {
-                kvTextY0            = new KeyValue(text.translateYProperty(), text.getTranslateY());
-                kvTextY1            = new KeyValue(text.translateYProperty(), 0);
-                kvTextFontSize0     = new KeyValue(fontSize, SMALL_FONT_SIZE);
-                kvTextFontSize1     = new KeyValue(fontSize, STD_FONT_SIZE);
-                kvPromptTextFill0   = new KeyValue(promptTextColorProperty(), getMaterialDesignColor());
-                kvPromptTextFill1   = new KeyValue(promptTextColorProperty(), DEFAULT_PROMPT_TEXT_COLOR);
+            if (Double.compare(promptTextBox.getTranslateY(), 0) != 0) {
+                kvTextY0          = new KeyValue(promptTextBox.translateYProperty(), promptTextBox.getTranslateY());
+                kvTextY1          = new KeyValue(promptTextBox.translateYProperty(), 0);
+                kvTextFontSize0   = new KeyValue(fontSize, SMALL_FONT_SIZE);
+                kvTextFontSize1   = new KeyValue(fontSize, STD_FONT_SIZE);
+                kvPromptTextFill0 = new KeyValue(promptTextColorProperty(), getMaterialDesignColor());
+                kvPromptTextFill1 = new KeyValue(promptTextColorProperty(), DEFAULT_PROMPT_TEXT_COLOR);
 
                 kf0 = new KeyFrame(Duration.ZERO, kvTextY0, kvTextFontSize0, kvPromptTextFill0);
                 kf1 = new KeyFrame(Duration.millis(ANIMATION_DURATION), kvTextY1, kvTextFontSize1, kvPromptTextFill1);
