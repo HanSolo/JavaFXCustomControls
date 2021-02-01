@@ -17,6 +17,7 @@
 package eu.hansolo.fx.customcontrols.extended;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -36,7 +37,7 @@ public class DemoExtended extends Application {
         button = new Button("Focus");
     }
 
-    @Override public void start(Stage stage) {
+    @Override public void start(final Stage stage) {
         VBox pane = new VBox(24, control, button);
         pane.setPadding(new Insets(20));
 
@@ -50,6 +51,7 @@ public class DemoExtended extends Application {
     }
 
     @Override public void stop() {
+        Platform.exit();
         System.exit(0);
     }
 

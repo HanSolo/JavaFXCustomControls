@@ -17,6 +17,7 @@
 package eu.hansolo.fx.customcontrols.restyled;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
@@ -34,7 +35,7 @@ public class DemoRestyled extends Application {
         control1 = new Switch("Material Design");
     }
 
-    @Override public void start(Stage stage) {
+    @Override public void start(final Stage stage) {
         VBox pane = new VBox(24, control0, control1);
         pane.setPadding(new Insets(20));
 
@@ -47,6 +48,7 @@ public class DemoRestyled extends Application {
     }
 
     @Override public void stop() {
+        Platform.exit();
         System.exit(0);
     }
 

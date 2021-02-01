@@ -18,6 +18,7 @@ package eu.hansolo.fx.customcontrols.controlskinbased;
 
 import eu.hansolo.fx.customcontrols.controlskinbased.CustomControl.SkinType;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
@@ -42,7 +43,7 @@ public class DemoControlSkinBased extends Application {
         control1.stateProperty().addListener((o, ov, nv) -> control0.setState(nv));
     }
 
-    @Override public void start(Stage stage) {
+    @Override public void start(final Stage stage) {
         VBox pane = new VBox(20, control0, control1);
         pane.setPadding(new Insets(20));
 
@@ -55,6 +56,7 @@ public class DemoControlSkinBased extends Application {
     }
 
     @Override public void stop() {
+        Platform.exit();
         System.exit(0);
     }
 

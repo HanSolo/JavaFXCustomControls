@@ -25,8 +25,8 @@ public class Switch extends CheckBox {
     public Switch() {
         this("");
     }
-    public Switch(final String TEXT) {
-        super(TEXT);
+    public Switch(final String text) {
+        super(text);
         getStyleClass().setAll("switch");
     }
 }

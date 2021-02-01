@@ -18,6 +18,7 @@ package eu.hansolo.fx.customcontrols.regionbased;
 
 import eu.hansolo.fx.customcontrols.regionbased.RegionControl.Type;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -71,7 +72,7 @@ public class DemoRegionBased extends Application {
         });
     }
 
-    @Override public void start(Stage stage) {
+    @Override public void start(final Stage stage) {
         StackPane pane = new StackPane(buttonBox);
         pane.setPadding(new Insets(8));
 
@@ -83,6 +84,7 @@ public class DemoRegionBased extends Application {
     }
 
     @Override public void stop() {
+        Platform.exit();
         System.exit(0);
     }
 

@@ -147,12 +147,12 @@ public class RegionControl extends Region {
 
 
     // ******************** Methods *******************************************
-    @Override protected double computeMinWidth(final double HEIGHT) { return MINIMUM_WIDTH; }
-    @Override protected double computeMinHeight(final double WIDTH) { return MINIMUM_HEIGHT; }
-    @Override protected double computePrefWidth(final double HEIGHT) { return super.computePrefWidth(HEIGHT); }
-    @Override protected double computePrefHeight(final double WIDTH) { return super.computePrefHeight(WIDTH); }
-    @Override protected double computeMaxWidth(final double HEIGHT) { return MAXIMUM_WIDTH; }
-    @Override protected double computeMaxHeight(final double WIDTH) { return MAXIMUM_HEIGHT; }
+    @Override protected double computeMinWidth(final double height) { return MINIMUM_WIDTH; }
+    @Override protected double computeMinHeight(final double width) { return MINIMUM_HEIGHT; }
+    @Override protected double computePrefWidth(final double height) { return super.computePrefWidth(height); }
+    @Override protected double computePrefHeight(final double width) { return super.computePrefHeight(width); }
+    @Override protected double computeMaxWidth(final double height) { return MAXIMUM_WIDTH; }
+    @Override protected double computeMaxHeight(final double width) { return MAXIMUM_HEIGHT; }
 
     @Override public ObservableList<Node> getChildren() { return super.getChildren(); }
 

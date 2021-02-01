@@ -63,8 +63,8 @@ public class CombinedControl extends HBox {
 
 
     // ******************** Methods *******************************************
-    private void handleControlPropertyChanged(final String PROPERTY) {
-        if ("BUTTON_PRESSED".equals(PROPERTY)) {
+    private void handleControlPropertyChanged(final String property) {
+        if ("BUTTON_PRESSED".equals(property)) {
             String buttonText = button.getText();
             String text       = textField.getText();
             if (text.matches("^[-+]?\\d+(\\.\\d+)?$")) {
