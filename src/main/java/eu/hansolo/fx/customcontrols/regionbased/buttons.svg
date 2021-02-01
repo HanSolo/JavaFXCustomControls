@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <ellipse cx="5.99" cy="6.005" rx="5.996" ry="5.992" style="fill:rgb(249,95,87);"/>
+    <path id="close" d="M6.001,5.429l2.554,-2.555l0.571,0.571l-2.555,2.554l2.55,2.55l-0.572,0.572l-2.55,-2.55l-2.554,2.555l-0.571,-0.571l2.555,-2.554l-2.55,-2.55l0.572,-0.572l2.55,2.55Z" style="fill:rgb(52,53,53);"/>
+    <ellipse cx="5.99" cy="6.005" rx="5.996" ry="5.992" style="fill:rgb(251,188,46);"/>
+    <rect id="minimize" x="1.983" y="5.5" width="8.034" height="1" style="fill:rgb(52,53,53);"/>
+    <ellipse cx="5.99" cy="6.005" rx="5.996" ry="5.992" style="fill:rgb(46,200,64);"/>
+    <path id="zoom" d="M9.533,9.418l-0.656,-4.545l-3.889,3.889l4.545,0.656Zm-6.837,-6.836l4.545,0.656l-3.889,3.889l-0.656,-4.545Z" style="fill:rgb(52,53,53);"/>
+</svg>
