@@ -85,3 +85,8 @@
     -fx-scale-shape     : false;
     -fx-shape           : "M2.696,2.582l4.545,0.656l-3.889,3.889l-0.656,-4.545ZM9.533,9.418l-0.656,-4.545l-3.889,3.889l4.545,0.656Z";
 }
+.region-based:hovered:zoom:state .symbol {
+    -fx-background-color: -DARK_GRAY;
+    -fx-scale-shape     : false;
+    -fx-shape           : "M6.225,6.111L10.77,6.767L6.881,10.656L6.225,6.111ZM6.004,5.889L5.348,1.344L1.459,5.233L6.004,5.889Z";
+}

@@ -52,7 +52,9 @@ public class RegionControl extends Region {
     private static final PseudoClass          ZOOM_PSEUDO_CLASS     = PseudoClass.getPseudoClass("zoom");
     private static final PseudoClass          HOVERED_PSEUDO_CLASS  = PseudoClass.getPseudoClass("hovered");
     private static final PseudoClass          PRESSED_PSEUDO_CLASS  = PseudoClass.getPseudoClass("pressed");
+    private static final PseudoClass          STATE_PSEUDO_CLASS    = PseudoClass.getPseudoClass("state");
     private              BooleanProperty      hovered;
+    private              BooleanProperty      state;
     private static       String               userAgentStyleSheet;
     private              ObjectProperty<Type> type;
     private              double               size;
@@ -96,6 +98,11 @@ public class RegionControl extends Region {
             @Override protected void invalidated() { pseudoClassStateChanged(HOVERED_PSEUDO_CLASS, get()); }
             @Override public Object getBean() { return RegionControl.this; }
             @Override public String getName() { return "hovered"; }
+        };
+        this.state   = new BooleanPropertyBase(false) {
+            @Override protected void invalidated() { pseudoClassStateChanged(STATE_PSEUDO_CLASS, get()); }
+            @Override public Object getBean() { return RegionControl.this; }
+            @Override public String getName() { return "state"; }
         };
 
         pseudoClassStateChanged(CLOSE_PSEUDO_CLASS,    Type.CLOSE    == type);
@@ -163,6 +170,10 @@ public class RegionControl extends Region {
     public boolean isHovered() { return hovered.get(); }
     public void setHovered(final boolean hovered) { this.hovered.set(hovered); }
     public BooleanProperty hoveredProperty() { return hovered; }
+
+    public boolean getState() { return state.get(); }
+    public void setState(final boolean state) { this.state.set(state); }
+    public BooleanProperty stateProperty() { return state; }
 
     public void setOnMousePressed(final Consumer<MouseEvent> mousePressedConsumer)   { this.mousePressedConsumer  = mousePressedConsumer; }
     public void setOnMouseReleased(final Consumer<MouseEvent> mouseReleasedConsumer) { this.mouseReleasedConsumer = mouseReleasedConsumer; }

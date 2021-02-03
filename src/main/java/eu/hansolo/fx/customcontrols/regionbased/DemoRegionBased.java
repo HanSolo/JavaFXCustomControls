@@ -57,7 +57,10 @@ public class DemoRegionBased extends Application {
         yellowButton.setOnMousePressed((Consumer<MouseEvent>) e -> System.out.println("Minimized pressed"));
         yellowButton.setOnMouseReleased((Consumer<MouseEvent>) e -> System.out.println("Minimized released"));
 
-        greenButton.setOnMousePressed((Consumer<MouseEvent>) e -> System.out.println("Zoom pressed"));
+        greenButton.setOnMousePressed((Consumer<MouseEvent>) e -> {
+            System.out.println("Zoom pressed");
+            greenButton.setState(!greenButton.getState());
+        });
         greenButton.setOnMouseReleased((Consumer<MouseEvent>) e -> System.out.println("Zoom released"));
 
         buttonBox.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
