@@ -68,12 +68,12 @@
      private static final Color                 DEFAULT_BACKGROUND_COLOR        = Color.web("#3a609be6");
      private static final Color                 DEFAULT_HIGHLIGHT_COLOR         = Color.web("#ffffff80");
      private static final Color                 DEFAULT_FOREGROUND_COLOR        = Color.WHITESMOKE;
-     private static final LinearGradient        TOP_HIGHLIGHT_GRADIENT          = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
+     private static final LinearGradient TOP_HIGHLIGHT_GRADIENT = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
                                                                                                      new Stop(0.0, Color.rgb(255, 255, 255, 0.5)),
                                                                                                      new Stop(1.0, Color.rgb(255, 255, 255, 0.1)));
-     private static final int                   NO_OF_BUBBLES                   = 30;
+     private static final int                   NO_OF_PARTICLES                 = 30;
      private static final long                  UPDATE_INTERVAL                 = 100_000l;
-     private        final Image                 bubbleImg;
+     private        final Image                 particleImg;
      private        final double                imgOffsetX;
      private        final double                imgOffsetY;
      private              String                userAgentStyleSheet;
@@ -94,43 +94,52 @@
      private              ObjectProperty<Color> backgroundColor;
      private              ObjectProperty<Color> foregroundColor;
      private              BooleanProperty       active;
-     private              ImageParticle[]       bubbles;
+     private              ImageParticle[]       particles;
      private              long                  lastTimerCalled;
      private              AnimationTimer        timer;
      private              Consumer<ActionEvent> actionConsumer;
 
-
-
+     
      // ******************** Constructors **************************************
      public CanvasControl() {
-         this("");
+         this("", null);
      }
      public CanvasControl(final String text) {
-         bubbleImg             = new Image(CanvasControl.class.getResourceAsStream("bubble.png"));
-         imgOffsetX            = bubbleImg.getWidth() * (-0.5);
-         imgOffsetY            = bubbleImg.getHeight() * (-0.5);
-         aspectRatio           = PREFERRED_HEIGHT / PREFERRED_WIDTH;
-         keepAspect            = true;
-         hovered               = false;
-         pressed               = false;
-         this.text             = new StringPropertyBase(text) {
+         this(text, null);
+     }
+     public CanvasControl(final Image image) {
+         this("", image);
+     }
+     public CanvasControl(final String text, final Image image) {
+         if (null == image || image.getWidth() != image.getHeight()) {
+             this.particleImg = new Image(CanvasControl.class.getResourceAsStream("bubble.png"));
+         } else {
+             this.particleImg = image;
+         }
+         this.imgOffsetX      = particleImg.getWidth() * (-0.5);
+         this.imgOffsetY      = particleImg.getHeight() * (-0.5);
+         this.aspectRatio     = PREFERRED_HEIGHT / PREFERRED_WIDTH;
+         this.keepAspect      = true;
+         this.hovered         = false;
+         this.pressed         = false;
+         this.text            = new StringPropertyBase(text) {
              @Override protected void invalidated() { redraw(); }
              @Override public Object getBean() { return CanvasControl.this; }
              @Override public String getName() { return "text"; }
          };
-         innerShadow           = new InnerShadow(BlurType.TWO_PASS_BOX, Color.rgb(0, 0, 0, 0.65), 20, 0.0, 0, 0);
-         dropShadow            = new DropShadow(BlurType.TWO_PASS_BOX, Color.rgb(0, 0, 0, 0.25), 5, 0.0, 0, 0);
-         backgroundColor       = new ObjectPropertyBase<>(DEFAULT_BACKGROUND_COLOR) {
+         this.innerShadow     = new InnerShadow(BlurType.TWO_PASS_BOX, Color.rgb(0, 0, 0, 0.65), 20, 0.0, 0, 0);
+         this.dropShadow      = new DropShadow(BlurType.TWO_PASS_BOX, Color.rgb(0, 0, 0, 0.25), 5, 0.0, 0, 0);
+         this.backgroundColor = new ObjectPropertyBase<>(DEFAULT_BACKGROUND_COLOR) {
              @Override protected void invalidated() { redraw(); }
              @Override public Object getBean() { return CanvasControl.this; }
              @Override public String getName() { return "backgroundColorTop"; }
          };
-         foregroundColor       = new ObjectPropertyBase<>(DEFAULT_FOREGROUND_COLOR) {
+         this.foregroundColor = new ObjectPropertyBase<>(DEFAULT_FOREGROUND_COLOR) {
              @Override protected void invalidated() { redraw(); }
              @Override public Object getBean() { return CanvasControl.this; }
              @Override public String getName() { return "foregroundColor"; }
          };
-         active                = new BooleanPropertyBase(false) {
+         this.active          = new BooleanPropertyBase(false) {
              @Override protected void invalidated() {
                  if (get()) {
                      timer.start();
@@ -141,9 +150,9 @@
              @Override public Object getBean() { return CanvasControl.this;}
              @Override public String getName() { return "active"; }
          };
-         bubbles               = new ImageParticle[NO_OF_BUBBLES];
-         lastTimerCalled       = System.nanoTime();
-         timer                 = new AnimationTimer() {
+         this.particles       = new ImageParticle[NO_OF_PARTICLES];
+         this.lastTimerCalled = System.nanoTime();
+         this.timer           = new AnimationTimer() {
              @Override public void handle(final long now) {
                  if (now - lastTimerCalled > UPDATE_INTERVAL) {
                      redraw();
@@ -151,8 +160,8 @@
                  }
              }
          };
-         for (int i = 0 ; i < NO_OF_BUBBLES ; i++) {
-             bubbles[i] = new ImageParticle(PREFERRED_WIDTH, PREFERRED_HEIGHT, bubbleImg);
+         for (int i = 0; i < NO_OF_PARTICLES; i++) {
+             particles[i] = new ImageParticle(PREFERRED_WIDTH, PREFERRED_HEIGHT, particleImg);
          }
          initGraphics();
          registerListeners();
@@ -174,14 +183,15 @@
 
          canvas = new Canvas(getPrefWidth(), getPrefHeight());
          canvas.setPickOnBounds(true);
-         ctx    = canvas.getGraphicsContext2D();
+
+         ctx = canvas.getGraphicsContext2D();
          ctx.setTextBaseline(VPos.CENTER);
          ctx.setTextAlign(TextAlignment.CENTER);
 
-         clip   = new Rectangle();
+         clip = new Rectangle();
          canvas.setClip(clip);
 
-         pane   = new Pane(canvas);
+         pane = new Pane(canvas);
 
          getChildren().setAll(pane);
      }
@@ -239,6 +249,7 @@
 
      public void setOnAction(final Consumer<ActionEvent> actionConsumer)   { this.actionConsumer  = actionConsumer; }
 
+
      // ******************** Layout *******************************************
      @Override public void layoutChildren() {
          super.layoutChildren();
@@ -281,7 +292,7 @@
              dropShadow.setRadius(height * 0.01);
              dropShadow.setOffsetY(height * 0.025);
 
-             for (ImageParticle bubble : bubbles) { bubble.adjustToSize(width, height); }
+             for (ImageParticle bubble : particles) { bubble.adjustToSize(width, height); }
 
              redraw();
          }
@@ -289,7 +300,7 @@
 
      private void redraw() {
          double cornerRadius          = height;
-         Color  backgroundColorTop    = hovered ? getBackgroundColor().brighter()    : getBackgroundColor();
+         Color  backgroundColorTop    = hovered ? getBackgroundColor().brighter() : getBackgroundColor();
          Color  backgroundColorBottom = hovered ? Color.hsb(backgroundColorTop.getHue(), backgroundColorTop.getSaturation(), Helper
              .clamp(0, 1, backgroundColorTop.getBrightness() * 1.5)).brighter() : Color.hsb(backgroundColorTop.getHue(), backgroundColorTop.getSaturation(), Helper
              .clamp(0, 1, backgroundColorTop.getBrightness() * 1.5));
@@ -324,7 +335,6 @@
          ctx.moveTo(width * 0.825886194029851, height * 0.0588235294117647);
          ctx.bezierCurveTo(width * 0.892958955223881, height * 0.0585176470588235, width * 0.92440671641791, height * 0.277141176470588, width * 0.887195895522388, height * 0.278105882352941);
          ctx.bezierCurveTo(width * 0.886925373134328, height * 0.278117647058824, width * 0.887389925373134, height * 0.276729411764706, width * 0.500067164179104, height * 0.282352941176471);
-
          ctx.bezierCurveTo(width * 0.500009328358209, height * 0.282352941176471, width * 0.113149253731343, height * 0.278117647058824, width * 0.112880597014925, height * 0.278105882352941);
          ctx.bezierCurveTo(width * 0.075669776119403, height * 0.277141176470588, width * 0.107117537313433, height * 0.0585176470588235, width * 0.174190298507463, height * 0.0588235294117647);
          ctx.lineTo(width * 0.825886194029851, height * 0.0588235294117647);
@@ -341,20 +351,20 @@
          ctx.restore(); // text dropshadow
          ctx.restore(); // translate
 
-         // Bubbles
+         // Particles
          if (isActive()) {
-             for (int i = 0 ; i < NO_OF_BUBBLES ; i++) {
-                 ImageParticle bubble = bubbles[i];
+             for (int i = 0; i < NO_OF_PARTICLES; i++) {
+                 ImageParticle particle = particles[i];
                  ctx.save(); // translate & scale
-                 ctx.translate(bubble.x, bubble.y);
-                 ctx.scale(bubble.size, bubble.size);
+                 ctx.translate(particle.x, particle.y);
+                 ctx.scale(particle.size, particle.size);
                  ctx.translate(imgOffsetX, imgOffsetY);
-                 ctx.setGlobalAlpha(bubble.opacity);
-                 ctx.drawImage(bubble.image, 0, 0);
+                 ctx.setGlobalAlpha(particle.opacity);
+                 ctx.drawImage(particle.image, 0, 0);
                  ctx.restore(); // translate & scale
 
-                 bubble.update();
-                 bubble.active = hovered;
+                 particle.update();
+                 particle.active = hovered;
              }
          }
      }
@@ -368,8 +378,8 @@
          private final Image   image;
          private       double  x;
          private       double  y;
-         private       double  vX;
-         private       double  vY;
+         private       double  vx;
+         private       double  vy;
          private       double  opacity;
          private       double  size;
          private       double  width;
@@ -397,8 +407,8 @@
              size = (rnd.nextDouble() * 0.5) + 0.1;
 
              // Velocity
-             vX = ((rnd.nextDouble() * 0.5) - 0.25) * velocityFactorX;
-             vY = ((-(rnd.nextDouble() * 2) - 0.5) * size) * velocityFactorY;
+             vx = ((rnd.nextDouble() * 0.5) - 0.25) * velocityFactorX;
+             vy = ((-(rnd.nextDouble() * 2) - 0.5) * size) * velocityFactorY;
 
              // Opacity
              opacity = (rnd.nextDouble() * 0.6) + 0.4;
@@ -412,10 +422,10 @@
          }
 
          public void update() {
-             x += vX;
-             y += vY;
+             x += vx;
+             y += vy;
 
-             // Reset particle
+             // Respawn particle if needed
              if(y < -image.getHeight()) {
                  if (active) { respawn(); }
              }

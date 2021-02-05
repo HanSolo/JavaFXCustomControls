@@ -19,6 +19,7 @@
  import javafx.application.Application;
  import javafx.application.Platform;
  import javafx.geometry.Insets;
+ import javafx.scene.image.Image;
  import javafx.scene.layout.Background;
  import javafx.scene.layout.BackgroundFill;
  import javafx.scene.layout.CornerRadii;
@@ -36,29 +37,41 @@
   * Time: 13:38
   */
  public class DemoCanvasBased extends Application {
+     private Image         dukeImg;
+     private Image         heartImg;
      private CanvasControl control1;
      private CanvasControl control2;
+     private CanvasControl control3;
 
      @Override public void init() {
-         control1 = new CanvasControl("Button");
+         dukeImg  = new Image(DemoCanvasBased.class.getResourceAsStream("duke.png"));
+         heartImg = new Image(DemoCanvasBased.class.getResourceAsStream("heart.png"));
+
+         control1 = new CanvasControl("We");
          control1.setPrefWidth(120);
 
-         control2 = new CanvasControl("Button");
+         control2 = new CanvasControl("Love", heartImg);
          control2.setBackgroundColor(Color.RED.darker());
          control2.setPrefWidth(120);
+
+         control3 = new CanvasControl("Java", dukeImg);
+         control3.setBackgroundColor(Color.web("#5382A1"));
+         control3.setPrefWidth(120);
 
          registerListeners();
      }
 
      private void registerListeners() {
-         control1.setOnAction(e -> System.out.println("Blue button pressed"));
-         control2.setOnAction(e -> System.out.println("Red button pressed"));
+         control1.setOnAction(e -> System.out.println("We button pressed"));
+         control2.setOnAction(e -> System.out.println("Love button pressed"));
+         control3.setOnAction(e -> System.out.println("Java button pressed"));
      }
 
      @Override public void start(Stage stage) {
          HBox.setHgrow(control1, Priority.ALWAYS);
          HBox.setHgrow(control2, Priority.ALWAYS);
-         HBox pane = new HBox(20, control1, control2);
+         HBox.setHgrow(control3, Priority.ALWAYS);
+         HBox pane = new HBox(20, control1, control2, control3);
          pane.setPadding(new Insets(20));
          pane.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
